@@ -17,8 +17,9 @@ public class InsurancePolicyService {
     @Autowired
     private InsurancePolicyRepository insurancePolicyRepository;
 
-
+    // Fetch all claims
     public List<InsurancePolicyResponseDto> getAllInsurancePolicies() {
+
         List<InsurancePolicyResponseDto> insurancePolicyResponseDtoList = new ArrayList<>();
         for(InsurancePolicy policy : insurancePolicyRepository.findAll()){
             InsurancePolicyResponseDto policyResponseDto = new InsurancePolicyResponseDto();
@@ -32,8 +33,9 @@ public class InsurancePolicyService {
         return insurancePolicyResponseDtoList;
     }
 
-
+    // Fetch a specific claim by ID
     public InsurancePolicyResponseDto getInsurancePolicyById(int Id) throws Exception {
+
         if (!insurancePolicyRepository.existsById(Id)) {
             throw new Exception("Insurance Policy not found");
         }else{
@@ -49,13 +51,17 @@ public class InsurancePolicyService {
     }
 
 
+    // Create a new claim.
     public String createInsurancePolicy(InsurancePolicy policy) {
+
         insurancePolicyRepository.save(policy);
         return "New Insurance Policy is added";
     }
 
 
+    // Update a claim's information
     public String updateInsurancePolicy(int Id, InsurancePolicy policyDetails)throws Exception {
+
         if (!insurancePolicyRepository.existsById(Id)) {
             throw new Exception("Insurance Policy not found");
         }else{
@@ -73,7 +79,10 @@ public class InsurancePolicyService {
         }
     }
 
+
+    // Delete a claim
     public String deleteInsurancePolicy(int Id) throws Exception {
+
         if (!insurancePolicyRepository.existsById(Id)) {
             throw new Exception("Insurance Policy not found");
         }else{

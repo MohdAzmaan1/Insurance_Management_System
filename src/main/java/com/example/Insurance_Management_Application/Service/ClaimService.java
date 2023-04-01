@@ -58,16 +58,19 @@ public class ClaimService {
 
 
     public ClaimResponseDto createClaim(ClaimEntryDto claimEntryDto){
+        String claimNumber = claimEntryDto.getClaimNumber();
         InsurancePolicy insurancePolicy = insurancePolicyRepository.findById(claimEntryDto.getPolicyId()).get();
         Claim claim = ClaimConvertor.convertDtoToEntity(claimEntryDto);
         claim.setInsurancePolicy(insurancePolicy);
+        claim.setClaimNumber(claimNumber);
         Claim updatedClaim = claimRepository.save(claim);
 
         ClaimResponseDto responseDto = new ClaimResponseDto();
         responseDto.setClaimDate(updatedClaim.getClaimDate());
         responseDto.setClaimStatus(updatedClaim.getClaimStatus());
         responseDto.setDescription(updatedClaim.getDescription());
-        responseDto.setClaimNumber(updatedClaim.getClaimNumber());
+        responseDto.setClaimNumber(claimNumber);
+        responseDto.setId(claim.getId());
         return responseDto;
     }
 

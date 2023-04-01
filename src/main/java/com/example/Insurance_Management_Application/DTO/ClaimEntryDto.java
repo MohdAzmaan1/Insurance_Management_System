@@ -2,7 +2,7 @@ package com.example.Insurance_Management_Application.DTO;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 public class ClaimEntryDto {
@@ -12,4 +12,6 @@ public class ClaimEntryDto {
     private String claimStatus;
 
     private int policyId;
+
+    private String claimNumber = UUID.randomUUID().toString();
 }

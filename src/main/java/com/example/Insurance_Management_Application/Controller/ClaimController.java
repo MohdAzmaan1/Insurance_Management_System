@@ -19,6 +19,7 @@ public class ClaimController {
     @Autowired
     private ClaimService claimService;
 
+
     @GetMapping
     public List<ClaimResponseDto> getAllClaims() {
         return claimService.getAllClaims();
