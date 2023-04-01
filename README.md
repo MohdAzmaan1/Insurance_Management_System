@@ -3,6 +3,7 @@ This is an insurance management platform built using Spring Boot and Java. The p
 
 
 # Design of the Application
+![image](https://user-images.githubusercontent.com/116377954/229310875-f906ffb9-a778-4083-9463-3465346050e0.png)
 
 
 # Requirements and Technology used
