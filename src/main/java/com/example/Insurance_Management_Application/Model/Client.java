@@ -27,6 +27,6 @@ public class Client {
 
     private String contactInformation;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     List<InsurancePolicy> insurancePolicyList = new ArrayList<>();
 }

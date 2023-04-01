@@ -1,6 +1,7 @@
 package com.example.Insurance_Management_Application.Model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class Claim {
 
     private String description;
 
+    @CreationTimestamp
     private LocalDate claimDate;
 
     private String claimStatus;
@@ -29,4 +31,5 @@ public class Claim {
     @ManyToOne
     @JoinColumn
     private InsurancePolicy insurancePolicy;
+
 }

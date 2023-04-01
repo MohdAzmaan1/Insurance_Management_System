@@ -2,6 +2,7 @@ package com.example.Insurance_Management_Application.Service;
 
 import com.example.Insurance_Management_Application.Convertor.ClaimConvertor;
 import com.example.Insurance_Management_Application.DTO.ClaimEntryDto;
+import com.example.Insurance_Management_Application.DTO.ClaimResponseDto;
 import com.example.Insurance_Management_Application.DTO.ClaimUpdateDto;
 import com.example.Insurance_Management_Application.Model.Claim;
 import com.example.Insurance_Management_Application.Model.InsurancePolicy;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,41 +26,59 @@ public class ClaimService {
     private InsurancePolicyRepository insurancePolicyRepository;
 
 
-    public List<Claim> getAllClaims() {
-        return claimRepository.findAll();
+    public List<ClaimResponseDto> getAllClaims() {
+        List<ClaimResponseDto> claimResponseDtoList = new ArrayList<>();
+
+        for(Claim claim : claimRepository.findAll()){
+            ClaimResponseDto claimResponseDto = new ClaimResponseDto();
+            claimResponseDto.setId(claim.getId());
+            claimResponseDto.setClaimNumber(claim.getClaimNumber());
+            claimResponseDto.setClaimDate(claim.getClaimDate());
+            claimResponseDto.setClaimStatus(claim.getClaimStatus());
+            claimResponseDto.setDescription(claim.getDescription());
+            claimResponseDtoList.add(claimResponseDto);
+        }
+        return claimResponseDtoList;
     }
 
 
-    public Claim getClaimById(int id) throws Exception{
+    public ClaimResponseDto getClaimById(int id) throws Exception{
         if(!claimRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Claim details not found");
+            throw new Exception("Claim details not found");
         }else{
-            return claimRepository.findById(id).get();
+            ClaimResponseDto claimResponseDto = new ClaimResponseDto();
+            Claim claim = claimRepository.findById(id).get();
+            claimResponseDto.setClaimDate(claim.getClaimDate());
+            claimResponseDto.setClaimStatus(claim.getClaimStatus());
+            claimResponseDto.setDescription(claim.getDescription());
+            claimResponseDto.setClaimNumber(claim.getClaimNumber());
+            return claimResponseDto;
         }
     }
 
 
-    public String createClaim(ClaimEntryDto claimEntryDto){
+    public ClaimResponseDto createClaim(ClaimEntryDto claimEntryDto){
+        InsurancePolicy insurancePolicy = insurancePolicyRepository.findById(claimEntryDto.getPolicyId()).get();
         Claim claim = ClaimConvertor.convertDtoToEntity(claimEntryDto);
-        InsurancePolicy policy = insurancePolicyRepository.findById(claim.getInsurancePolicy().getId()).orElseThrow();
+        claim.setInsurancePolicy(insurancePolicy);
+        Claim updatedClaim = claimRepository.save(claim);
 
-        claim.setInsurancePolicy(policy);
-        claimRepository.save(claim);
-        return "Claim details are added";
+        ClaimResponseDto responseDto = new ClaimResponseDto();
+        responseDto.setClaimDate(updatedClaim.getClaimDate());
+        responseDto.setClaimStatus(updatedClaim.getClaimStatus());
+        responseDto.setDescription(updatedClaim.getDescription());
+        responseDto.setClaimNumber(updatedClaim.getClaimNumber());
+        return responseDto;
     }
 
 
     public String updateClaim(int id, ClaimUpdateDto claimUpdateDto) throws Exception {
         if(!claimRepository.existsById(id)){
-            throw new Exception("Claim Details are not found");
+            throw new Exception("Claim details not found");
         }else{
-            Claim claim = getClaimById(id);
+            Claim claim = claimRepository.findById(id).get();
             claim.setDescription(claimUpdateDto.getDescription());
-            claim.setClaimDate(claimUpdateDto.getClaimDate());
             claim.setClaimStatus(claimUpdateDto.getClaimStatus());
-            InsurancePolicy policy = insurancePolicyRepository.findById(claimUpdateDto.getInsurancePolicy().getId()).orElseThrow();
-
-            claim.setInsurancePolicy(policy);
             claimRepository.save(claim);
             return "Claim details are updated";
         }
@@ -67,9 +87,10 @@ public class ClaimService {
 
     public String deleteClaim(int id) throws Exception{
         if (!claimRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Claim not found");
+            throw new Exception("Claim details not found");
         }else{
-            claimRepository.deleteById(id);
+            Claim claim = claimRepository.findById(id).get();
+            claimRepository.delete(claim);
             return "Client details deleted successfully";
         }
     }

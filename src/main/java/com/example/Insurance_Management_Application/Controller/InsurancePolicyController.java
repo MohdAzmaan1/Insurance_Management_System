@@ -1,5 +1,6 @@
 package com.example.Insurance_Management_Application.Controller;
 
+import com.example.Insurance_Management_Application.DTO.InsurancePolicyResponseDto;
 import com.example.Insurance_Management_Application.Model.InsurancePolicy;
 import com.example.Insurance_Management_Application.Service.InsurancePolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class InsurancePolicyController {
 
 
     @GetMapping
-    public List<InsurancePolicy> getAllInsurancePolicies() {
+    public List<InsurancePolicyResponseDto> getAllInsurancePolicies() {
         return insurancePolicyService.getAllInsurancePolicies();
     }
 
@@ -28,7 +29,7 @@ public class InsurancePolicyController {
         try{
             return new ResponseEntity<>(insurancePolicyService.getInsurancePolicyById(Id).toString(), HttpStatus.FOUND);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

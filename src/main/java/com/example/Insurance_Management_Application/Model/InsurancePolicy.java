@@ -1,6 +1,7 @@
 package com.example.Insurance_Management_Application.Model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class InsurancePolicy {
 
     private Double premium;
 
+    @CreationTimestamp
     private LocalDate startDate;
 
     private LocalDate endDate;
@@ -36,6 +38,6 @@ public class InsurancePolicy {
     @JoinColumn
     private Client client;
 
-    @OneToMany(mappedBy = "insurancePolicy")
+    @OneToMany(mappedBy = "insurancePolicy", cascade = CascadeType.ALL)
     private List<Claim> claimList = new ArrayList<>();
 }

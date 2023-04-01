@@ -30,7 +30,7 @@ public class ClientController {
         try{
             return new ResponseEntity<>(clientService.getClientById(id).toString(), HttpStatus.FOUND);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Client not found");
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

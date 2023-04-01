@@ -9,8 +9,6 @@ public class ClaimConvertor {
         return Claim.builder()
                 .description(claimEntryDto.getDescription())
                 .claimStatus(claimEntryDto.getClaimStatus())
-                .claimDate(claimEntryDto.getClaimDate())
-                .insurancePolicy(claimEntryDto.getInsurancePolicy())
                 .build();
     }
 }

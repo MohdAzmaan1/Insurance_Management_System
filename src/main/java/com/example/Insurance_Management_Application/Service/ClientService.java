@@ -26,7 +26,7 @@ public class ClientService {
 
     public Client getClientById(int id) throws Exception{
         if (!clientRepository.existsById(id)) {
-            throw new Exception("Not Found");
+            throw new Exception("Client not found");
         }else{
             return clientRepository.findById(id).get();
         }
