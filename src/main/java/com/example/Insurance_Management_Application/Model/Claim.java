@@ -1,10 +1,8 @@
 package com.example.Insurance_Management_Application.Model;
 
+import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SourceType;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
