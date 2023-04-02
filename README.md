@@ -3,7 +3,7 @@ This is an insurance management platform built using Spring Boot and Java. The p
 
 
 # Design of the Application
-![image](https://user-images.githubusercontent.com/116377954/229310875-f906ffb9-a778-4083-9463-3465346050e0.png)
+![image](https://user-images.githubusercontent.com/116377954/229338637-f878114d-09e9-41aa-8d78-690be33aae27.png)
 
 
 # Requirements and Technology used
@@ -29,20 +29,19 @@ The following endpoints are available:
 
 # Clients
 * GET /api/clients: Fetch all clients.  
-(When new client is added in database then initially, list of policy issued will be empty because no policy is issued.)
-![image](https://user-images.githubusercontent.com/116377954/229309859-3375a04e-24f9-4851-8a1a-110034dcda92.png)  
+![image](https://user-images.githubusercontent.com/116377954/229337081-26646c2a-e8ad-487d-ab02-5a2b8613989c.png)  
 
 
 * GET /api/clients/{id}: Fetch a specific client by ID.
-![image](https://user-images.githubusercontent.com/116377954/229309876-a5053855-7ac3-4c20-93d5-d895bfae55d7.png)  
+![image](https://user-images.githubusercontent.com/116377954/229337102-0d8c1fea-aa4e-42ef-9228-f11863305039.png) 
 
 
 * POST /api/clients: Create a new client.
-![image](https://user-images.githubusercontent.com/116377954/229308007-bda70e7c-8630-40c7-846b-fc604f3f0414.png)   
+![image](https://user-images.githubusercontent.com/116377954/229337136-ce2323c2-a5c8-4bc2-a592-ef1adf923f1f.png)  
 
 
 * PUT /api/clients/{id}: Update a client's information.
-![image](https://user-images.githubusercontent.com/116377954/229309046-6b13d7bb-ef06-4a0e-a96e-6959bd12eb0c.png)
+![image](https://user-images.githubusercontent.com/116377954/229337192-b9ee62cc-5a07-45c9-8447-1d8a9d444bf5.png)
   
   
 * DELETE /api/clients/{id}: Delete a client.
@@ -52,16 +51,16 @@ The following endpoints are available:
 
 # Insurance Policies
 * GET /api/policies: Fetch all insurance policies.
-![image](https://user-images.githubusercontent.com/116377954/229309970-b302f295-3008-4066-aebe-db9c1f2628e7.png)
+![image](https://user-images.githubusercontent.com/116377954/229338086-8074a16b-ad5f-4ce3-8495-9055e680701a.png)
 
 * GET /api/policies/{id}: Fetch a specific insurance policy by ID.
-![image](https://user-images.githubusercontent.com/116377954/229309960-56bdcf65-249e-4bdd-82e8-f1bec2489c74.png)
+![image](https://user-images.githubusercontent.com/116377954/229338077-f932db6a-6283-476e-babd-4270de11cd38.png)
 
 * POST /api/policies: Create a new insurance policy.
-![image](https://user-images.githubusercontent.com/116377954/229309304-45a09516-8b42-4ea1-86d7-4858ede2ac32.png)
+![image](https://user-images.githubusercontent.com/116377954/229337993-2269c22b-184d-4dd0-8bae-acc8c12e2ca7.png)
 
 * PUT /api/policies/{id}: Update an insurance policy.
-![image](https://user-images.githubusercontent.com/116377954/229309396-4a25162b-8053-4747-ab4e-497869544b06.png)
+![image](https://user-images.githubusercontent.com/116377954/229338053-ef60ab58-cc77-449e-9e32-222276b133e0.png)
 
 * DELETE /api/policies/{id}: Delete an insurance policy.
 ![image](https://user-images.githubusercontent.com/116377954/229309983-411fe967-fd6b-4b47-b802-b5d84e50cf33.png)
@@ -71,18 +70,18 @@ The following endpoints are available:
   
 # Claims
 * GET /api/claims: Fetch all claims.   
-![image](https://user-images.githubusercontent.com/116377954/229310185-71af3dff-3b12-450f-979b-5e1bd7228a81.png)
+![image](https://user-images.githubusercontent.com/116377954/229338547-26f0cdcb-fd9c-4efa-85bc-b63e7d907ac2.png)
 
 * GET /api/claims/{id}: Fetch a specific claim by ID.
-![image](https://user-images.githubusercontent.com/116377954/229310101-08708bf0-a73e-4a0d-b9ef-3d9984e47ff0.png)
+![image](https://user-images.githubusercontent.com/116377954/229338552-e6047c59-0249-49df-a334-509ba9bc6b7d.png)
 
 * POST /api/claims: Create a new claim.
 
 (First save any insurance policy and then use its id as policyId here)
-![image](https://user-images.githubusercontent.com/116377954/229309541-18ffff81-0a16-4d24-a86e-609deed7f03b.png)
+![image](https://user-images.githubusercontent.com/116377954/229338527-79e337ad-ee67-4eee-8785-110635308c99.png)
 
 * PUT /api/claims/{id}: Update a claim's information.
-![image](https://user-images.githubusercontent.com/116377954/229309720-8e82062c-51dc-4fc8-bc11-39f0af9adab2.png)
+![image](https://user-images.githubusercontent.com/116377954/229338573-51f3a2cc-544c-4bdb-847c-c25b33641e1e.png)
 
 * DELETE /api/claims/{id}: Delete a claim.
 ![image](https://user-images.githubusercontent.com/116377954/229310115-490a83c5-5f03-4d55-b16e-a8c8543d1b7f.png)
