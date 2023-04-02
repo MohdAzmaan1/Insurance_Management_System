@@ -1,5 +1,6 @@
 package com.example.Insurance_Management_Application.Controller;
 
+import com.example.Insurance_Management_Application.DTO.ErrorResponse;
 import com.example.Insurance_Management_Application.DTO.InsurancePolicyResponseDto;
 import com.example.Insurance_Management_Application.Model.InsurancePolicy;
 import com.example.Insurance_Management_Application.Service.InsurancePolicyService;
@@ -25,27 +26,29 @@ public class InsurancePolicyController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getInsurancePolicyById(@PathVariable(value = "id") int Id) {
+    public ResponseEntity<?> getInsurancePolicyById(@PathVariable(value = "id") int Id) {
         try{
-            return new ResponseEntity<>(insurancePolicyService.getInsurancePolicyById(Id).toString(), HttpStatus.FOUND);
+            return new ResponseEntity<>(insurancePolicyService.getInsurancePolicyById(Id), HttpStatus.FOUND);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 
 
     @PostMapping
-    public ResponseEntity<String> createInsurancePolicy(@RequestBody InsurancePolicy policy) {
+    public ResponseEntity<InsurancePolicyResponseDto> createInsurancePolicy(@RequestBody InsurancePolicy policy) {
         return new ResponseEntity<>(insurancePolicyService.createInsurancePolicy(policy), HttpStatus.CREATED);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateInsurancePolicy(@PathVariable(value = "id") int Id, @RequestBody InsurancePolicy policyDetails) {
+    public ResponseEntity<?> updateInsurancePolicy(@PathVariable(value = "id") int Id, @RequestBody InsurancePolicy policyDetails) {
         try{
             return new ResponseEntity<>(insurancePolicyService.updateInsurancePolicy(Id, policyDetails), HttpStatus.CREATED);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 

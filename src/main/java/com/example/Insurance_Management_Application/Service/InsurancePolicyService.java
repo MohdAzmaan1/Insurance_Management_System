@@ -4,9 +4,7 @@ import com.example.Insurance_Management_Application.DTO.InsurancePolicyResponseD
 import com.example.Insurance_Management_Application.Model.InsurancePolicy;
 import com.example.Insurance_Management_Application.Repository.InsurancePolicyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ public class InsurancePolicyService {
             policyResponseDto.setCoverageAmount(policy.getCoverageAmount());
             policyResponseDto.setPremium(policy.getPremium());
             policyResponseDto.setType(policy.getType());
+            policyResponseDto.setEndDate(policy.getEndDate());
             insurancePolicyResponseDtoList.add(policyResponseDto);
         }
         return insurancePolicyResponseDtoList;
@@ -46,21 +45,31 @@ public class InsurancePolicyService {
             policyResponseDto.setCoverageAmount(policy.getCoverageAmount());
             policyResponseDto.setPremium(policy.getPremium());
             policyResponseDto.setType(policy.getType());
+            policyResponseDto.setEndDate(policy.getEndDate());
             return policyResponseDto;
         }
     }
 
 
     // Create a new claim.
-    public String createInsurancePolicy(InsurancePolicy policy) {
+    public InsurancePolicyResponseDto createInsurancePolicy(InsurancePolicy policy) {
 
         insurancePolicyRepository.save(policy);
-        return "New Insurance Policy is added";
+
+        // Sending Response DTO to user
+        InsurancePolicyResponseDto policyResponseDto = new InsurancePolicyResponseDto();
+        policyResponseDto.setId(policy.getId());
+        policyResponseDto.setPolicyNumber(policy.getPolicyNumber());
+        policyResponseDto.setCoverageAmount(policy.getCoverageAmount());
+        policyResponseDto.setPremium(policy.getPremium());
+        policyResponseDto.setType(policy.getType());
+        policyResponseDto.setEndDate(policy.getEndDate());
+        return policyResponseDto;
     }
 
 
     // Update a claim's information
-    public String updateInsurancePolicy(int Id, InsurancePolicy policyDetails)throws Exception {
+    public InsurancePolicyResponseDto updateInsurancePolicy(int Id, InsurancePolicy policyDetails)throws Exception {
 
         if (!insurancePolicyRepository.existsById(Id)) {
             throw new Exception("Insurance Policy not found");
@@ -70,12 +79,19 @@ public class InsurancePolicyService {
             policy.setType(policyDetails.getType());
             policy.setCoverageAmount(policyDetails.getCoverageAmount());
             policy.setPremium(policyDetails.getPremium());
-            policy.setStartDate(policyDetails.getStartDate());
             policy.setEndDate(policyDetails.getEndDate());
             policy.setClient(policyDetails.getClient());
 
             insurancePolicyRepository.save(policy);
-            return "Insurance Policy details are updated";
+
+            InsurancePolicyResponseDto policyResponseDto = new InsurancePolicyResponseDto();
+            policyResponseDto.setId(policy.getId());
+            policyResponseDto.setPolicyNumber(policy.getPolicyNumber());
+            policyResponseDto.setCoverageAmount(policy.getCoverageAmount());
+            policyResponseDto.setPremium(policy.getPremium());
+            policyResponseDto.setType(policy.getType());
+            policyResponseDto.setEndDate(policy.getEndDate());
+            return policyResponseDto;
         }
     }
 

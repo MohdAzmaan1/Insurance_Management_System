@@ -1,15 +1,15 @@
 package com.example.Insurance_Management_Application.Controller;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.example.Insurance_Management_Application.DTO.ClientEntryDto;
+import com.example.Insurance_Management_Application.DTO.ClientResponseDto;
 import com.example.Insurance_Management_Application.DTO.ClientUpdateDto;
+import com.example.Insurance_Management_Application.DTO.ErrorResponse;
 import com.example.Insurance_Management_Application.Model.Client;
 import com.example.Insurance_Management_Application.Service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,30 +21,32 @@ public class ClientController {
     private ClientService clientService;
 
     @GetMapping
-    public List<Client> getAllClients(){
+    public List<ClientResponseDto> getAllClients(){
         return clientService.getAllClients();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getClientById(@PathVariable(value = "id") int id) {
+    public ResponseEntity<?> getClientById(@PathVariable(value = "id") int id) {
         try{
-            return new ResponseEntity<>(clientService.getClientById(id).toString(), HttpStatus.FOUND);
+            return new ResponseEntity<>(clientService.getClientById(id), HttpStatus.FOUND);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping
-    public ResponseEntity<String> createClient(@RequestBody ClientEntryDto clientEntryDto) {
+    public ResponseEntity<ClientResponseDto> createClient(@RequestBody ClientEntryDto clientEntryDto) {
         return new ResponseEntity<>(clientService.createClient(clientEntryDto), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateClient(@PathVariable(value = "id") int id, @RequestBody ClientUpdateDto clientUpdateDto){
+    public ResponseEntity<?> updateClient(@PathVariable(value = "id") int id, @RequestBody ClientUpdateDto clientUpdateDto){
         try{
             return new ResponseEntity<>(clientService.updateClient(id, clientUpdateDto), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -54,7 +56,7 @@ public class ClientController {
             String response = clientService.deleteClient(id);
             return new ResponseEntity<>(response, HttpStatus.FOUND);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Client not found", HttpStatus.NOT_FOUND);
         }
     }
 }

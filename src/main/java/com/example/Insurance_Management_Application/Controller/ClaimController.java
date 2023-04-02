@@ -3,6 +3,7 @@ package com.example.Insurance_Management_Application.Controller;
 import com.example.Insurance_Management_Application.DTO.ClaimEntryDto;
 import com.example.Insurance_Management_Application.DTO.ClaimResponseDto;
 import com.example.Insurance_Management_Application.DTO.ClaimUpdateDto;
+import com.example.Insurance_Management_Application.DTO.ErrorResponse;
 import com.example.Insurance_Management_Application.Model.Claim;
 import com.example.Insurance_Management_Application.Service.ClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,12 @@ public class ClaimController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getClaimById(@PathVariable(value = "id") int id){
+    public ResponseEntity<?> getClaimById(@PathVariable(value = "id") int id){
         try{
-            return new ResponseEntity<>(claimService.getClaimById(id).toString(), HttpStatus.FOUND);
+            return new ResponseEntity<>(claimService.getClaimById(id), HttpStatus.FOUND);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -43,11 +45,12 @@ public class ClaimController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateClaim(@PathVariable int id, @RequestBody ClaimUpdateDto claimUpdateDto){
+    public ResponseEntity<?> updateClaim(@PathVariable int id, @RequestBody ClaimUpdateDto claimUpdateDto){
         try{
             return new ResponseEntity<>(claimService.updateClaim(id, claimUpdateDto), HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
 

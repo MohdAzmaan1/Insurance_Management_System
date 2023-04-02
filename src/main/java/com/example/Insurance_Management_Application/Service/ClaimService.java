@@ -9,9 +9,7 @@ import com.example.Insurance_Management_Application.Model.InsurancePolicy;
 import com.example.Insurance_Management_Application.Repository.ClaimRepository;
 import com.example.Insurance_Management_Application.Repository.InsurancePolicyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +50,7 @@ public class ClaimService {
             claimResponseDto.setClaimStatus(claim.getClaimStatus());
             claimResponseDto.setDescription(claim.getDescription());
             claimResponseDto.setClaimNumber(claim.getClaimNumber());
+            claimResponseDto.setId(claim.getId());
             return claimResponseDto;
         }
     }
@@ -75,7 +74,7 @@ public class ClaimService {
     }
 
 
-    public String updateClaim(int id, ClaimUpdateDto claimUpdateDto) throws Exception {
+    public ClaimResponseDto updateClaim(int id, ClaimUpdateDto claimUpdateDto) throws Exception {
         if(!claimRepository.existsById(id)){
             throw new Exception("Claim details not found");
         }else{
@@ -83,7 +82,14 @@ public class ClaimService {
             claim.setDescription(claimUpdateDto.getDescription());
             claim.setClaimStatus(claimUpdateDto.getClaimStatus());
             claimRepository.save(claim);
-            return "Claim details are updated";
+
+            ClaimResponseDto responseDto = new ClaimResponseDto();
+            responseDto.setClaimDate(claim.getClaimDate());
+            responseDto.setClaimStatus(claim.getClaimStatus());
+            responseDto.setDescription(claim.getDescription());
+            responseDto.setClaimNumber(claim.getClaimNumber());
+            responseDto.setId(claim.getId());
+            return responseDto;
         }
     }
 
