@@ -19,12 +19,15 @@ public class InsurancePolicyController {
     private InsurancePolicyService insurancePolicyService;
 
 
+    //  Fetch all insurance policies. GET API  -  localhost:8080/api/policies
     @GetMapping
     public List<InsurancePolicyResponseDto> getAllInsurancePolicies() {
         return insurancePolicyService.getAllInsurancePolicies();
     }
 
 
+
+    // Fetch a specific insurance policy by ID:   GET API  -  localhost:8080/api/policies/{id}
     @GetMapping("/{id}")
     public ResponseEntity<?> getInsurancePolicyById(@PathVariable(value = "id") int Id) {
         try{
@@ -36,12 +39,24 @@ public class InsurancePolicyController {
     }
 
 
+
+    //  Create a new insurance policy. POST API   -   localhost:8080/api/policies
     @PostMapping
     public ResponseEntity<InsurancePolicyResponseDto> createInsurancePolicy(@RequestBody InsurancePolicy policy) {
         return new ResponseEntity<>(insurancePolicyService.createInsurancePolicy(policy), HttpStatus.CREATED);
     }
+    //JSON For Postman:
+    // {
+    //    "type":"Type of policy",
+    //    "coverageAmount": Enter amount in digits,
+    //    "premium":  Enter premium amount in digits,
+    //    "endDate":"yyyy-mm-dd"
+    //}
 
 
+
+
+    // Update an insurance policy.  - PUT API   -   localhost:8080/api/policies/{id}
     @PutMapping("/{id}")
     public ResponseEntity<?> updateInsurancePolicy(@PathVariable(value = "id") int Id, @RequestBody InsurancePolicy policyDetails) {
         try{
@@ -51,8 +66,19 @@ public class InsurancePolicyController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
+    //Enter the values that you want to update
+    //JSON For Postman:
+    // {
+    //    "type":"Type of policy",
+    //    "coverageAmount": Enter amount in digits,
+    //    "premium":  Enter premium amount in digits,
+    //    "endDate":"yyyy-mm-dd"
+    //}
 
 
+
+
+    // Delete an insurance policy:   DELETE API   -   localhost:8080/api/policies/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteInsurancePolicy(@PathVariable(value = "id") int Id){
         try{

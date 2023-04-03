@@ -21,12 +21,15 @@ public class ClaimController {
     private ClaimService claimService;
 
 
+    // Fetch all claims:     GET API    -   localhost:8080/api/claims
     @GetMapping
     public List<ClaimResponseDto> getAllClaims() {
         return claimService.getAllClaims();
     }
 
 
+
+    // Fetch a specific claim by ID:    GET API    -   localhost:8080/api/claims/{id}
     @GetMapping("/{id}")
     public ResponseEntity<?> getClaimById(@PathVariable(value = "id") int id){
         try{
@@ -38,12 +41,25 @@ public class ClaimController {
     }
 
 
+
+
+    // Create a new claim:     POST API    -   localhost:8080/api/claims
     @PostMapping
     public ResponseEntity<ClaimResponseDto> createClaim(@RequestBody ClaimEntryDto claimEntryDto) {
         return new ResponseEntity<>(claimService.createClaim(claimEntryDto), HttpStatus.CREATED);
     }
+    // JSON for Postman
+    // {
+    //    "description" : "Enter the description status",
+    //    "claimStatus":"Enter the claim status",
+    //    "policyId": Enter the id of existing insurance policy.
+    //}
 
 
+
+
+
+    // Update a claim's information:    PUT API    -    localhost:8080/api/claims/{id}
     @PutMapping("/{id}")
     public ResponseEntity<?> updateClaim(@PathVariable int id, @RequestBody ClaimUpdateDto claimUpdateDto){
         try{
@@ -53,8 +69,19 @@ public class ClaimController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
+    // Enter the values that you want to update
+    // JSON for Postman
+    // {
+    //    "description" : "Enter the description status",
+    //    "claimStatus":"Enter the claim status",
+    //    "policyId": Enter the insurance policy id that you have already created
+    //}
 
 
+
+
+
+    //  Delete a claim:    DELETE API   -    localhost:8080/api/claims{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClaim(@PathVariable(value = "id") int id) {
         try{

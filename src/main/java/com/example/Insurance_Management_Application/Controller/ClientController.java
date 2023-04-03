@@ -20,11 +20,17 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+
+    // Fetch all clients :   GET API   -   localhost:8080/api/clients
     @GetMapping
     public List<ClientResponseDto> getAllClients(){
         return clientService.getAllClients();
     }
 
+
+
+
+    // Fetch a specific client by ID:  GET API   -  localhost:8080/api/clients/{id}
     @GetMapping("/{id}")
     public ResponseEntity<?> getClientById(@PathVariable(value = "id") int id) {
         try{
@@ -35,11 +41,26 @@ public class ClientController {
         }
     }
 
+
+
+
+    // Create a new client:    POST API    -   localhost:8080/api/clients
     @PostMapping
     public ResponseEntity<ClientResponseDto> createClient(@RequestBody ClientEntryDto clientEntryDto) {
         return new ResponseEntity<>(clientService.createClient(clientEntryDto), HttpStatus.CREATED);
     }
+    // JSON for Postman
+    // {
+    //    "name":"Enter Name of client",
+    //    "address": "Enter city of client",
+    //    "contactInformation": "Enter phone number of client",
+    //    "dateOfBirth": "yyyy-mm-dd"
+    //}
 
+
+
+
+    // Update a client's information: PUT API    -    localhost:8080/api/clients/{id}
     @PutMapping("/{id}")
     public ResponseEntity<?> updateClient(@PathVariable(value = "id") int id, @RequestBody ClientUpdateDto clientUpdateDto){
         try{
@@ -49,7 +70,19 @@ public class ClientController {
             return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
         }
     }
+    // Enter the values that you want to update
+    // JSON for Postman
+    // {
+    //    "name":"Enter Name of client",
+    //    "address": "Enter city of client",
+    //    "contactInformation": "Enter phone number of client",
+    //    "dateOfBirth": "yyyy-mm-dd"
+    //}
 
+
+
+
+    // Delete a client:    DELETE API     -    localhost:8080/api/clients/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClient(@PathVariable(value = "id") int id){
         try{
