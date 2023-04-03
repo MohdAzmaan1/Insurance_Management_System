@@ -7,14 +7,14 @@ This is an insurance management platform built using Spring Boot and Java. The p
 
 
 # Requirements and Technology used
-* Java 11 or higher
+* Java 11 or higher (Here, I have used Java version 17)
 * Spring Boot 2.7.10
 * Spring Data JPA
 * Maven
 * Apache Derby Database
 * Postman
  
-Note: Derby is used as an in-memory database
+Note: Here, Derby is used as an in-memory database
 
 # Setup
 * Clone the repository
