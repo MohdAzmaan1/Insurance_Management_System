@@ -11,18 +11,17 @@ This is an insurance management platform built using Spring Boot and Java. The p
 * Spring Boot 2.7.10
 * Spring Data JPA
 * Maven
-* Apache Derby Database    
+* Apache Derby Database
+* Postman
  
 Note: Derby is used as an in-memory database
 
 # Setup
 * Clone the repository
-* Open the project in an IDE
+* Open the project in an IDE (Here, I have used Intelli J)
 * Build the project using Maven: mvn clean install
 * Run the project
-<!-- # Usage
-Authentication
-The API endpoints are secured using Basic Authentication. To access the endpoints, you need to provide a username and password. -->
+* Test the API on postman through mentioned endpoints
 
 # API Endpoints
 The following endpoints are available:
