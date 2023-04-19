@@ -1,5 +1,5 @@
 # Insurance_Management_System
-This is an insurance management platform built using Spring Boot and Java. The platform allows users to manage insurance policies, clients, and claims through a RESTful API.
+This is an insurance management platform built using Spring Boot and Java. The platform allows to manage insurance policies, clients, and claims through the RESTful API's.
 
 
 # Design of the Application
