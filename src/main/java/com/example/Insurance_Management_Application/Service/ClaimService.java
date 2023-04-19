@@ -100,7 +100,7 @@ public class ClaimService {
         }else{
             Claim claim = claimRepository.findById(id).get();
             claimRepository.delete(claim);
-            return "Client details deleted successfully";
+            return "Claim details deleted successfully";
         }
     }
 }
